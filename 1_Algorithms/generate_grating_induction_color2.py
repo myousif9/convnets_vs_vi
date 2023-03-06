@@ -30,7 +30,7 @@ def generateLuminanceGradientColor2(outputSize,sizeTarget,colors):
     
     image = np.ones((outputSize,outputSize,3))
     
-    gradient = np.linspace(0,1, num=outputSize/2 +0.5*outputSize)
+    gradient = np.linspace(0,1, num=int(outputSize/2 +0.5*outputSize))
     begin = 0
     for i in range(int(outputSize/2 + 0.5*outputSize)-begin):
         

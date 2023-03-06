@@ -22,22 +22,16 @@ import generate_white_illussionSym
 import generate_brightnessContrast
 import cv2
 
+show_img = False
 
-savePath = '/home/alexander/Desktop/CVPR/2_Data/'
-imageSavePath = '/home/alexander/Desktop/CVPR/4_State_of_Art/DnCNN-master/TrainingCodes/dncnn_keras/data/Test/illusions/'
-maskPaths = '/home/alexander/Desktop/CVPR/4_State_of_Art/DnCNN-master/TrainingCodes/dncnn_keras/data/Test/masks/'
-maskDungeon = '/home/alexander/Desktop/CVPR/4_State_of_Art/DnCNN-master/TrainingCodes/dncnn_keras/data/Test/masksDungeon/'
-maskShevell = '/home/alexander/Desktop/CVPR/4_State_of_Art/DnCNN-master/TrainingCodes/dncnn_keras/data/Test/masksShevell/'
-maskLuminance = '/home/alexander/Desktop/CVPR/4_State_of_Art/DnCNN-master/TrainingCodes/dncnn_keras/data/Test/maskLum/'
-'''
+source_path = '/home/mcesped/projects/ctb-akhanf/myousif9/Neural_Networks_project/'
+savePath = source_path+'output/Test/'
+imageSavePath = source_path+'output/Test/illusions/'
+maskPaths = source_path+'output/Test/masks/'
+maskDungeon = source_path+'output/Test/masksDungeon/'
+maskShevell = source_path+'output/Test/masksShevell/'
+maskLuminance = source_path+'output/Test/maskLum/'
 
-savePath = '/home/alexander/Desktop/CVPR/2_Data/'
-imageSavePath = '/home/alexander/Desktop/CVPR/temp/gray/'
-maskPaths = '/home/alexander/Desktop/CVPR/temp/whiteTargets/'
-maskDungeon = '/home/alexander/Desktop/CVPR/temp/dungeonTargets/'
-maskShevell = '/home/alexander/Desktop/CVPR/temp/maskShevell/'
-maskLuminance = '/home/alexander/Desktop/CVPR/temp/maskLuminance/'
-'''
 
 colors = np.zeros((3,3))
 sparialFreq = [0.01,0.03,0.05,0.07,0.09,0.12,0.15]
@@ -61,9 +55,9 @@ for i in range(len(sparialFreq)):
 #    
 #    data[cont,:,:,:] = generate_white_illussionSym.generateWhiteSimetric(outputSize, 0.1
 #    ,sparialFreq[i],colors)
-    
-    plt.imshow(data[cont,:,:,:])
-    plt.show()    
+    if show_img:
+        plt.imshow(data[cont,:,:,:])
+        plt.show()    
      
     
     cont += 1
@@ -79,73 +73,6 @@ colors[1,0] = colors[1,1] = colors[1,2] = 0
 colors[2,0] = colors[2,1] = colors[2,2] = 0.5  
 
 sparialFreqDun = [0.03,0.05,0.07,0.09,0.12,0.15]  
-
-'''
-
-for i in range(len(sparialFreqDun)):
-
-    if(sparialFreqDun[i]==0.03):
-        data[cont:cont+2,:,:,:] = generate_dungeon.generateDungeon(outputSize
-        ,0.4,sparialFreqDun[i],126,126, colors)
-        
-        dataImg = generate_dungeon2.generateDungeon2(outputSize
-        ,0.4,sparialFreqDun[i],126,126, colors)
-        
-        
-        cv2.imwrite(maskDungeon+str(i)+'.png',dataImg[0,:,:,:]*255)
-        
-        
-        
-    elif(sparialFreqDun[i]==0.09):
-        data[cont:cont+2,:,:,:] = generate_dungeon.generateDungeon(outputSize
-        ,0.42,sparialFreqDun[i],130,130, colors)
-        
-        dataImg = generate_dungeon2.generateDungeon2(outputSize
-        ,0.42,sparialFreqDun[i],130,130, colors)
-        
-        cv2.imwrite(maskDungeon+str(i)+'.png',dataImg[0,:,:,:]*255)
-        
-        
-
-    elif(sparialFreqDun[i]==0.12):
-        data[cont:cont+2,:,:,:] = generate_dungeon.generateDungeon(outputSize
-        ,0.45,sparialFreqDun[i],128,128, colors) 
-        
-        dataImg = generate_dungeon2.generateDungeon2(outputSize
-        ,0.45,sparialFreqDun[i],128,128, colors)
-        
-        cv2.imwrite(maskDungeon+str(i)+'.png',dataImg[0,:,:,:]*255)
-        
-    elif(sparialFreqDun[i]==0.15):
-        data[cont:cont+2,:,:,:] = generate_dungeon.generateDungeon(outputSize
-        ,0.45,sparialFreqDun[i],134,134, colors)  
-        
-        dataImg = generate_dungeon2.generateDungeon2(outputSize
-        ,0.45,sparialFreqDun[i],134,134, colors)
-        
-        cv2.imwrite(maskDungeon+str(i)+'.png',dataImg[0,:,:,:]*255)
-        
-    elif(sparialFreqDun[i]==0.05):
-        data[cont:cont+2,:,:,:] = generate_dungeon.generateDungeon(outputSize
-        ,0.4,sparialFreqDun[i],132,132, colors)  
-        
-        dataImg = generate_dungeon2.generateDungeon2(outputSize
-        ,0.4,sparialFreqDun[i],132,132, colors)
-        
-        cv2.imwrite(maskDungeon+str(i)+'.png',dataImg[0,:,:,:]*255)        
-    else:
-        data[cont:cont+2,:,:,:] = generate_dungeon.generateDungeon(outputSize
-        ,0.4,sparialFreqDun[i],129,129, colors)#129
-        
-        dataImg = generate_dungeon2.generateDungeon2(outputSize
-        ,0.4,sparialFreqDun[i],129,129, colors)
-        
-        cv2.imwrite(maskDungeon+str(i)+'.png',dataImg[0,:,:,:]*255)
- 
-
-    cont += 2
-    
-'''    
 
 for i in range(len(sparialFreqDun)):
 
@@ -198,9 +125,9 @@ for i in range(len(sparialFreqDun)):
         ,0.4,sparialFreqDun[i],64,64, colors)
         
         cv2.imwrite(maskDungeon+str(i)+'.png',dataImg[0,:,:,:]*255)
- 
-    plt.imshow(data[cont,:,:,:])
-    plt.show()    
+    if show_img:
+        plt.imshow(data[cont,:,:,:])
+        plt.show()    
     cont += 2
 
 
@@ -246,9 +173,9 @@ for i in range(len(sizeTarget)):
     cv2.imwrite(maskLuminance+str(i)+'.png',generate_grating_induction2.generateLuminanceGradient2(
     outputSize,sizeTarget[i],colors)*255)   
    
-
-    #plt.imshow(data[cont,:,:,:])
-    #plt.show()
+    if show_img:
+        plt.imshow(data[cont,:,:,:])
+        plt.show()
     
     cont += 1
     
@@ -526,7 +453,7 @@ for i in range(len(sparialFreq)):
     
     cont += 2       
     
-path='/home/alexander/Desktop/CVPR/4_State_of_Art/DnCNN-master/TrainingCodes/dncnn_keras/data/Test/illusions/'   
+# imageSavePath=source_path+'output/Test/illusions/'   
 for i in range(data.shape[0]):
     
     
@@ -536,7 +463,7 @@ for i in range(data.shape[0]):
     temp[:,:,1] = data[i,:,:,1]*255
     temp[:,:,2] = data[i,:,:,2]*255
     
-    cv2.imwrite(path+str(i)+'.png',temp)
+    cv2.imwrite(imageSavePath+str(i)+'.png',temp)
     
 
 np.save(savePath+'ilussions',data)

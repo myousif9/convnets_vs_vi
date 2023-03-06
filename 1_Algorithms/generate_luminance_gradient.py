@@ -15,7 +15,7 @@ def generateLuminanceGradient(outputSize,sizeTarget,colors):
     #Parameters
     #outputSize = 128 # Size of the output image
         
-    outputSize2 = int(outputSize*1.5)
+    outputSize2 = outputSize #int(outputSize*1.5)
     
     image = np.zeros((outputSize,outputSize2,3))
     
