@@ -24,7 +24,7 @@ import cv2
 
 show_img = False
 
-source_path = '/home/mcesped/projects/ctb-akhanf/myousif9/Neural_Networks_project/'
+source_path = '/project/ctb-akhanf/myousif9/Neural_Networks_project/'
 savePath = source_path+'output/Test/'
 imageSavePath = source_path+'output/Test/illusions/'
 maskPaths = source_path+'output/Test/masks/'
