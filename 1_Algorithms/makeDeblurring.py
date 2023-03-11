@@ -1,61 +1,37 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Sep 10 11:32:35 2018
+Created on Sat Mach 11 2023
 
-@author: root
+@author: Mauricio Cespedes Tenorio
 """
 
 import numpy as np
 import cv2
 import os
 import random
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
+import zipfile
+import os
+
 
 imageSize = 128
-m = (0,0,0)
 noise_factor = 0.1
 
-saveDir = "/home/alexander/Desktop/CVPR/2_Data/Deblurring_lin10/"
-imagePath = '/home/alexander/Desktop/CVPR/2_Data/Deblurring_lin10/'
+source_path = '/project/ctb-akhanf/myousif9/Neural_Networks_project'
+imagePath = os.path.join(source_path, "output/Train/resampled.zip")
+outZip = os.path.join(source_path, "output/Train/deblurring.zip")
 
-trainDir = os.listdir(imagePath+'inputs_lin10')
-testDir = os.listdir(imagePath+'outputs_lin10')
+# New zip file
+zipf = zipfile.ZipFile(outZip, 'w', zipfile.ZIP_DEFLATED)
 
-
-outputIm = np.zeros((len(trainDir),imageSize,imageSize,3),dtype=np.int16)
-contIm = 0
-
-print("Train ready!!!")
-
-    
-for i in trainDir:
-    
-    outputIm[contIm,:,:,:] = cv2.resize(cv2.imread(imagePath+'inputs_lin10/'+i),(128,128))
-    contIm += 1
-    print(contIm)
-
-np.save(saveDir+'inputs', outputIm)
-#np.save(saveDir+'/y_test', y_test)
-
-del outputIm#,y_train
-#
-#inputIm = np.zeros((len(trainDir),imageSize,imageSize,3),dtype=np.int16)
-#contIm = 0
-#
-#print("Train ready!!!")
-#
-#    
-#for i in trainDir:
-#    
-#    inputIm[contIm,:,:,:] = cv2.resize(cv2.imread(imagePath+'outputs_lin10/b_'+i),(128,128))
-#    contIm += 1
-#    print(contIm)
-#
-#np.save(saveDir+'outputs', inputIm)
-##np.save(saveDir+'/y_test', y_test)
-#
-#del inputIm#,y_train
-
-
+with zipfile.ZipFile(imagePath, mode="r") as archive:
+    n_files = len(archive.namelist())
+    x_train = np.zeros((n_files,imageSize,imageSize,3))
+    for filename in archive.namelist():
+        data = archive.read(filename)
+        image = cv2.imdecode(np.frombuffer(data, np.uint8), 1)
+        image = cv2.GaussianBlur(image, (0,0),2)
+        retval, buf = cv2.imencode('.jpeg', image)
+        zipf.writestr(filename, buf)
+zipf.close()
 print("All images were read!!!")  
-
