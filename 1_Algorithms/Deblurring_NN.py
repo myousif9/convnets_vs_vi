@@ -69,9 +69,9 @@ with zipfile.ZipFile(inputZip, mode="r") as archive:
         data = archive.read(filename)
         image = cv2.imdecode(np.frombuffer(data, np.uint8), 1)
         
-        retval, buf = cv2.imencode('.jpeg', image)
-        zipf.writestr(filename, buf)
-zipf.close()
+#         retval, buf = cv2.imencode('.jpeg', image)
+#         zipf.writestr(filename, buf)
+# zipf.close()
 
 # inputImg = np.load(path+'output_blur.npy')
 # outputImg = np.load(path+'output_blur.npy')
